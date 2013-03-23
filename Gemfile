@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails'
 
-gem 'sqlite3'
+gem 'mysql2'
 gem 'parallel'
 gem 'json'
 gem 'has_scope'

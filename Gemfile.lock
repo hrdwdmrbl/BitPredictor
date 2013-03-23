@@ -111,6 +111,7 @@ GEM
     mime-types (1.21)
     multi_json (1.7.2)
     multipart-post (1.2.0)
+    mysql2 (0.3.11)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -190,7 +191,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sqlite3 (1.3.7)
     squeel (1.0.18)
       activerecord (~> 3.0)
       activesupport (~> 3.0)
@@ -225,6 +225,7 @@ DEPENDENCIES
   js-routes
   json
   kaminari
+  mysql2
   nested_form!
   omniauth-facebook
   parallel
@@ -239,6 +240,5 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   sentient_user
   simple_form (= 2.0.1)
-  sqlite3
   squeel
   uglifier (>= 1.0.3)

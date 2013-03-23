@@ -1,8 +1,5 @@
+%h1= @prediction.name
 %p#notice= notice
-
-%p
-  %b Name:
-  = @prediction.name
 %p
   %b End date:
   = @prediction.end_date
@@ -10,11 +7,53 @@
   %b Prediction:
   = @prediction.prediction
 %p
-  %b Source:
-  = @prediction.source
-%p
-  %b Verified by:
-  = @prediction.verified_by
+  %b Created By:
+  = @prediction.user.name
+
+%h1 Place Your Bits
+%h2 Listing bids
+
+%table
+  %tr
+    %th Price
+    %th User
+    %th
+    %th
+    %th
+
+  - @prediction.bids.each do |bid|
+    %tr
+      %td= bid.price
+      %td= bid.user.name
+      %td= link_to 'Show', bid
+      %td= link_to 'Edit', edit_bid_path(bid)
+      %td= link_to 'Destroy', bid, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+= link_to 'New Bid', new_prediction_bid_path(@prediction.id)
+
+%h2 Listing buys
+
+%table
+  %tr
+    %th Price
+    %th User
+    %th Prediction
+    %th
+    %th
+    %th
+
+  - @prediction.buys.each do |buy|
+    %tr
+      %td= buy.price
+      %td= buy.user.name
+      %td= buy.prediction_id
+      %td= link_to 'Show', buy
+      %td= link_to 'Edit', edit_buy_path(buy)
+      %td= link_to 'Destroy', buy, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+= link_to 'New Buy', new_prediction_buy_path(@prediction.id)
 
 = link_to 'Edit', edit_prediction_path(@prediction)
 \|

@@ -9,11 +9,6 @@
   .field
     = f.label :price
     = f.text_field :price
-  .field
-    = f.label :user_id
-    = f.number_field :user_id
-  .field
-    = f.label :prediction_id
-    = f.number_field :prediction_id
+    = f.hidden_field :prediction_id, :value => @prediction.id
   .actions
     = f.submit 'Save'
