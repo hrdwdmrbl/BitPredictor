@@ -4,6 +4,8 @@
 package com.bitcoin.predictionmarket.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
@@ -16,6 +18,12 @@ import com.bitcoin.predictionmarket.fragment.ContractListFragment;
 public class MainActivity extends SherlockFragmentActivity {	
 	private ViewPager viewPager;
 	private TabsAdapter tabsAdapter;
+	
+	public static void launchFromChild(Context context) {
+		Intent intent = new Intent(context, MainActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		context.startActivity(intent);
+	}
 
 	@SuppressLint("NewApi")
 	@Override
