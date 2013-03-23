@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.bitcoin.predictionmarket.R;
+import com.bitcoin.predictionmarket.fragment.BuySellDialogFragment;
 import com.bitcoin.predictionmarket.model.Contract;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
@@ -25,10 +28,15 @@ import com.jjoe64.graphview.LineGraphView;
 
 public class ContractDetailsActivity extends SherlockFragmentActivity {
 	private static final String BUNDLE_CONTRACT = "BUNDLE_CONTRACT";	
+	private static final double MIN = 0;
+	private static final double MAX = 10;
+	private static final double RANGE = MAX - MIN;
 	
 	private final DateFormat dateFormatter = SimpleDateFormat.getDateInstance(SimpleDateFormat.FULL);
-	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ #.##");
-	private final DateFormat timeFormatter = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM);
+	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ 0.00");
+	private final DateFormat timeFormatter = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
+	
+	private Contract contract;
 	
 	public static void launch(Context context, Contract contract) {
 		Intent intent = new Intent(context, ContractDetailsActivity.class);
@@ -44,11 +52,11 @@ public class ContractDetailsActivity extends SherlockFragmentActivity {
 		ActionBar actionBar = getSupportActionBar();
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 		
-		Contract contract = (Contract) getIntent().getSerializableExtra(BUNDLE_CONTRACT);		
+	    contract = (Contract) getIntent().getSerializableExtra(BUNDLE_CONTRACT);		
 		((TextView)findViewById(R.id.contractName)).setText(contract.name);
 		((TextView)findViewById(R.id.contractExpiration)).setText(getString(R.string.expiresOn, dateFormatter.format(contract.expiration)));
 		
-		GraphView graphView = new LineGraphView(this, "example") {  
+		GraphView graphView = new LineGraphView(this, "Last 24 hours") {  
 			   @Override  
 			   protected String formatLabel(double value, boolean isValueX) {  
 			      if (isValueX) {  
@@ -56,14 +64,37 @@ public class ContractDetailsActivity extends SherlockFragmentActivity {
 			      } else {
 			    	 return doubleFormatter.format(value);   
 			      }
-			   }  
+			   }
+
+				@Override
+				protected double getMaxY() {
+					return MAX;
+				}
+	
+				@Override
+				protected double getMinY() {
+					return MIN;
+				}			   			   
 			};  
-		graphView.addSeries(genRandomWalkDataForDay()); // data
-		graphView.setScalable(true);
+		graphView.addSeries(genRandomWalkDataForDay()); // data		
 		graphView.setGraphViewStyle(new GraphViewStyle(Color.rgb(0, 0, 0), Color.rgb(0, 0, 0), Color.rgb(96, 96, 96)));	
 
 		LinearLayout layout = (LinearLayout) findViewById(R.id.graphRoot);
 		layout.addView(graphView);
+		
+		findViewById(R.id.buy).setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				BuySellDialogFragment.showBuy(getSupportFragmentManager());
+			}
+		});
+		
+		findViewById(R.id.sell).setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				BuySellDialogFragment.showSell(getSupportFragmentManager());
+			}
+		});
 	}
 
 	@Override
@@ -88,12 +119,9 @@ public class ContractDetailsActivity extends SherlockFragmentActivity {
 	
 	private GraphViewSeries genRandomWalkDataForDay() {
 		final Random random = new Random();
-		final int size = 240;		
-		final double min = 0;
-		final double max = 10;
-		final double range = max - min;
-		final double walkPerTick = range / 1000.0;		
-		double current = min + random.nextDouble() * range;
+		final int size = 240;				
+		final double walkPerTick = RANGE / 25.0;		
+		double current = contract.price;
 		
 		final long now = System.currentTimeMillis();
 		final long dayMs = 60 * 60 * 24 * 1000;
@@ -101,11 +129,11 @@ public class ContractDetailsActivity extends SherlockFragmentActivity {
 		
 		GraphViewData[] graphViewData = new GraphViewData[size];
 		
-		for (int i = 0; i < size; i++) {
+		for (int i = size - 1; i >= 0; i--) {
 			graphViewData[i] = new GraphViewData(now - interval * (size - i), current);	
 			double delta = (random.nextDouble() - 0.5) * walkPerTick;
 			current += delta;
-			current = clamp(current, min, max);
+			current = clamp(current, MIN, MAX);
 		}
 		
 		return new GraphViewSeries(graphViewData);

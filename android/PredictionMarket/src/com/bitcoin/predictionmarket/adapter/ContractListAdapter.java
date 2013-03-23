@@ -24,21 +24,37 @@ import com.bitcoin.predictionmarket.adapter.ContractListAdapter.SyncWithServer.S
 import com.bitcoin.predictionmarket.model.Contract;
 
 public class ContractListAdapter extends BaseAdapter {
-	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ #.##");
+	private static final int VIEW_TYPE_COUNT = 2;
+	private static final int TYPE_HEADER = 0;
+	private static final int TYPE_CONTRACT = 1;		
+	
+	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ 0.00");
 	private final DateFormat dateFormatter = SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG);
 	
 	private final Context context;
 	private final LayoutInflater layoutInflater;
 	private final ListView listView;		
 
-	private List<Contract> listData = new ArrayList<Contract>();
+	private List<Object> listData = new ArrayList<Object>();
 	
 	private final SettableList settableList = new SettableList() {
 		@Override
-		public void setList(List<Contract> newListData) {
+		public void setList(List<Object> newListData) {
 			ContractListAdapter.this.setList(newListData);
 		}
 	};
+	
+	static class Header {
+		final String header;
+
+		public Header(String header) {
+			this.header = header;
+		}				
+	}
+	
+	static class HeaderViewHolder {
+		TextView header;
+	}
 	
 	static class ContractViewHolder {
 		View contractItemLayout;		
@@ -66,37 +82,71 @@ public class ContractListAdapter extends BaseAdapter {
 	@Override
 	public long getItemId(int position) {
 		return position;
-	}	
+	}			
 
-	public List<Contract> getList() {
+	@Override
+	public int getItemViewType(int position) {
+		final Object item = listData.get(position);
+
+		if (item instanceof Header) {
+			return TYPE_HEADER;
+		} else {
+			return TYPE_CONTRACT;
+		} 
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		return VIEW_TYPE_COUNT;
+	}
+
+	public List<Object> getList() {
 		return listData;
 	}	
 
-	void setList(List<Contract> newListData) {				
+	void setList(List<Object> newListData) {				
 		listData = newListData;		
 		notifyDataSetChanged();
 	}	
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {		
-		if (convertView == null) {
-			convertView = layoutInflater.inflate(R.layout.contract_item, null);
-			
-			final ContractViewHolder contractViewHolder = new ContractViewHolder();
-			contractViewHolder.contractItemLayout = convertView.findViewById(R.id.contractItemLayout);
-			contractViewHolder.contractName = (TextView) convertView.findViewById(R.id.contractName);
-			contractViewHolder.contractExpiration = (TextView) convertView.findViewById(R.id.contractExpiration);
-			contractViewHolder.contractPrice = (TextView) convertView.findViewById(R.id.contractPrice);
-			
-			convertView.setTag(contractViewHolder);					
-		}		
+	public View getView(int position, View convertView, ViewGroup parent) {
+		final int itemViewType = getItemViewType(position);
 		
-		final Contract contract = (Contract) listData.get(position);
-		final ContractViewHolder viewHolder = (ContractViewHolder) convertView.getTag();
+		if (convertView == null) {					
+			if (itemViewType == TYPE_HEADER) {
+				convertView = layoutInflater.inflate(R.layout.header_item, null);
+				
+				final HeaderViewHolder headerViewHolder = new HeaderViewHolder();
+				headerViewHolder.header = (TextView) convertView.findViewById(R.id.header);				
+				
+				convertView.setTag(headerViewHolder);	
+			} else {
+				convertView = layoutInflater.inflate(R.layout.contract_item, null);
+				
+				final ContractViewHolder contractViewHolder = new ContractViewHolder();
+				contractViewHolder.contractItemLayout = convertView.findViewById(R.id.contractItemLayout);
+				contractViewHolder.contractName = (TextView) convertView.findViewById(R.id.contractName);
+				contractViewHolder.contractExpiration = (TextView) convertView.findViewById(R.id.contractExpiration);
+				contractViewHolder.contractPrice = (TextView) convertView.findViewById(R.id.contractPrice);
+				
+				convertView.setTag(contractViewHolder);	
+			}									
+		}	
 		
-		viewHolder.contractName.setText(contract.name);
-		viewHolder.contractExpiration.setText(context.getString(R.string.expiresOn, dateFormatter.format(contract.expiration)));
-		viewHolder.contractPrice.setText(doubleFormatter.format(contract.price));
+		if (itemViewType == TYPE_HEADER) {
+			final Header header = (Header) listData.get(position);
+			final HeaderViewHolder viewHolder = (HeaderViewHolder) convertView.getTag();
+			
+			viewHolder.header.setText(header.header);
+		} else {
+			final Contract contract = (Contract) listData.get(position);
+			final ContractViewHolder viewHolder = (ContractViewHolder) convertView.getTag();
+			
+			viewHolder.contractName.setText(contract.name);
+			viewHolder.contractExpiration.setText(context.getString(R.string.expiresOn, dateFormatter.format(contract.expiration)));
+			viewHolder.contractPrice.setText(doubleFormatter.format(contract.price));
+		}
 
 		return convertView;
 	}
@@ -109,9 +159,9 @@ public class ContractListAdapter extends BaseAdapter {
 		void onSyncComplete();
 	}
 
-	static class SyncWithServer extends AsyncTask<Void, Void, List<Contract>> {
+	static class SyncWithServer extends AsyncTask<Void, Void, List<Object>> {
 		interface SettableList {
-			void setList(List<Contract> newListData);
+			void setList(List<Object> newListData);
 		}
 		
 		private final ListView listView;
@@ -131,20 +181,35 @@ public class ContractListAdapter extends BaseAdapter {
 		}
 
 		@Override
-		protected List<Contract> doInBackground(Void... params) {						
-			final List<Contract> result = new ArrayList<Contract>();	
+		protected List<Object> doInBackground(Void... params) {						
+			final List<Object> result = new ArrayList<Object>();	
 			
-			Contract a = new Contract();
-			a.name = "Dow Jones above 25000";			
-			a.expiration = new Date(1388606400000L);
-			a.price = 4.50;
-			result.add(a);
+			result.add(new Header("Business"));
+			result.add(new Contract("Apple share price above 500", new Date(1388606400000L), 8.73));
+			result.add(new Contract("Apple share price above 600", new Date(1388606400000L), 6.32));
+			result.add(new Contract("Apple share price above 700", new Date(1388606400000L), 3.47));
+			result.add(new Header("Economy"));
+			result.add(new Contract("Dow Jones above 15000", new Date(1388606400000L), 9.74));
+			result.add(new Contract("Dow Jones above 20000", new Date(1388606400000L), 4.59));
+			result.add(new Contract("Dow Jones above 25000", new Date(1388606400000L), 2.43));
+			result.add(new Header("Government"));
+			result.add(new Contract("War with Iran declared by 2014", new Date(1388606400000L), 3.23));
+			result.add(new Contract("War with Iran declared by 2015", new Date(1420113600000L), 4.58));
+			result.add(new Contract("War with Iran declared by 2016", new Date(1451649600000L), 4.92));
+			result.add(new Header("Health"));
+			result.add(new Contract("Marijuana declared legal by 2014", new Date(1388606400000L), 1.42));
+			result.add(new Contract("Marijuana declared legal by 2015", new Date(1420113600000L), 2.74));
+			result.add(new Contract("Marijuana declared legal by 2016", new Date(1451649600000L), 3.47));
+			result.add(new Header("Sports"));
+			result.add(new Contract("Canada wins at least 5 gold medals in the 2014 Olympics", new Date(1393588800000L), 9.32));
+			result.add(new Contract("Canada wins at least 8 gold medals in the 2014 Olympics", new Date(1393588800000L), 6.23));
+			result.add(new Contract("Canada wins at least 12 gold medals in the 2014 Olympics", new Date(1393588800000L), 4.438));			
 			
 			return result;
-		}
+		}		
 
 		@Override
-		protected void onPostExecute(List<Contract> result) {
+		protected void onPostExecute(List<Object> result) {
 			if (result.isEmpty()) {
 				((TextView) listView.getEmptyView()).setText(R.string.noContractsFound);				
 			}
