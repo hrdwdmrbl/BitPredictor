@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.bitcoin.predictionmarket.R;
+import com.bitcoin.predictionmarket.utils.StaticBalance;
 
 public class BuySellConfirmDialogFragment extends SherlockDialogFragment {	
 	private static final String TAG = "BuySellConfirmDialogFragment";
@@ -67,8 +68,10 @@ public class BuySellConfirmDialogFragment extends SherlockDialogFragment {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				if (isBuy) {
+					StaticBalance.balance -= price * quantity;
 					BuySellSubmitSuccessfulDialogFragment.showSuccessfulBuy(getFragmentManager());
 				} else {
+					StaticBalance.balance += price * quantity;
 					BuySellSubmitSuccessfulDialogFragment.showSuccessfulSell(getFragmentManager());
 				}
 				

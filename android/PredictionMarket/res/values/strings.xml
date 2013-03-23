@@ -24,5 +24,6 @@
     <string name="buySuccessful">Your purchase order has been successfully submitted!</string>
     <string name="sellComplete">Sell Order Complete</string>
     <string name="sellSuccessful">Your sell order has been successfully submitted!</string>
+    <string name="balance">Balance: %s</string>
 
 </resources>
