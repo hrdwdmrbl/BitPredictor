@@ -3,8 +3,11 @@
  ******************************************************************************/
 package com.bitcoin.predictionmarket.adapter;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -20,7 +23,10 @@ import com.bitcoin.predictionmarket.R;
 import com.bitcoin.predictionmarket.adapter.ContractListAdapter.SyncWithServer.SettableList;
 
 public class ContractListAdapter extends BaseAdapter {
-	private final DecimalFormat doubleFormatter = new DecimalFormat("#.##");	
+	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ #.##");
+	private final DateFormat dateFormatter = SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG);
+	
+	private final Context context;
 	private final LayoutInflater layoutInflater;
 	private final ListView listView;		
 
@@ -36,6 +42,7 @@ public class ContractListAdapter extends BaseAdapter {
 	static class ContractViewHolder {
 		View contractItemLayout;		
 		TextView contractName;
+		TextView contractExpiration;
 		TextView contractPrice;		
 	}
 
@@ -45,10 +52,12 @@ public class ContractListAdapter extends BaseAdapter {
 
 	public static class ContractListItem extends ListItem {
 		public String contractName;
+		public Date contractExpiration;
 		public double contractPrice;
 	}
 	
-	public ContractListAdapter(Context context, ListView listView) {		
+	public ContractListAdapter(Context context, ListView listView) {
+		this.context = context;
 		this.layoutInflater = LayoutInflater.from(context);
 		this.listView = listView;		
 	}		
@@ -85,6 +94,7 @@ public class ContractListAdapter extends BaseAdapter {
 			final ContractViewHolder contractViewHolder = new ContractViewHolder();
 			contractViewHolder.contractItemLayout = convertView.findViewById(R.id.contractItemLayout);
 			contractViewHolder.contractName = (TextView) convertView.findViewById(R.id.contractName);
+			contractViewHolder.contractExpiration = (TextView) convertView.findViewById(R.id.contractExpiration);
 			contractViewHolder.contractPrice = (TextView) convertView.findViewById(R.id.contractPrice);
 			
 			convertView.setTag(contractViewHolder);					
@@ -94,6 +104,7 @@ public class ContractListAdapter extends BaseAdapter {
 		final ContractViewHolder viewHolder = (ContractViewHolder) convertView.getTag();
 		
 		viewHolder.contractName.setText(listItem.contractName);
+		viewHolder.contractExpiration.setText(context.getString(R.string.expiresOn, dateFormatter.format(listItem.contractExpiration)));
 		viewHolder.contractPrice.setText(doubleFormatter.format(listItem.contractPrice));
 
 		return convertView;
@@ -133,7 +144,8 @@ public class ContractListAdapter extends BaseAdapter {
 			final List<ListItem> result = new ArrayList<ListItem>();	
 			
 			ContractListItem a = new ContractListItem();
-			a.contractName = "Dow Jones > 25000 by January 2014";
+			a.contractName = "Dow Jones above 25000";			
+			a.contractExpiration = new Date(1388606400000L);
 			a.contractPrice = 4.50;
 			result.add(a);
 			
