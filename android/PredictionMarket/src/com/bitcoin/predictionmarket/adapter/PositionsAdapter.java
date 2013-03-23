@@ -97,10 +97,10 @@ public class PositionsAdapter extends BaseAdapter {
 		viewHolder.contractPrice.setText(doubleFormatter.format(contractPosition.contract.price));
 		
 		if (contractPosition.netProfitLoss >= 0) {
-			viewHolder.netProfitLoss.setText(context.getString(R.string.netProfit, doubleFormatter.format(contractPosition.netProfitLoss)));
+			viewHolder.netProfitLoss.setText(doubleFormatter.format(contractPosition.netProfitLoss));
 			viewHolder.netProfitLoss.setTextColor(Color.rgb(0, 128, 0));
 		} else {
-			viewHolder.netProfitLoss.setText(context.getString(R.string.netLoss, doubleFormatter.format(contractPosition.netProfitLoss)));
+			viewHolder.netProfitLoss.setText(doubleFormatter.format(contractPosition.netProfitLoss));
 			viewHolder.netProfitLoss.setTextColor(Color.RED);
 		}
 
