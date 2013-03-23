@@ -20,6 +20,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bitcoin.predictionmarket.R;
 import com.bitcoin.predictionmarket.fragment.BuySellDialogFragment;
 import com.bitcoin.predictionmarket.model.Contract;
+import com.bitcoin.predictionmarket.utils.StaticBalance;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
 import com.jjoe64.graphview.GraphViewSeries;
@@ -103,7 +104,16 @@ public class ContractDetailsActivity extends SherlockFragmentActivity {
 
 		// Apparently works around a bug that manifests itself on some Android
 		// versions.
-		getSherlock().dispatchInvalidateOptionsMenu();		
+		getSherlock().dispatchInvalidateOptionsMenu();
+		
+		getActionBar().setSubtitle(getString(R.string.balance, doubleFormatter.format(StaticBalance.balance)));
+	}
+	
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		
+		getActionBar().setSubtitle(getString(R.string.balance, doubleFormatter.format(StaticBalance.balance)));
 	}
 
 	@Override

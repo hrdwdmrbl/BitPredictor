@@ -3,11 +3,14 @@
  ******************************************************************************/
 package com.bitcoin.predictionmarket.activity;
 
+import java.text.DecimalFormat;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -15,10 +18,13 @@ import com.bitcoin.predictionmarket.R;
 import com.bitcoin.predictionmarket.adapter.TabsAdapter;
 import com.bitcoin.predictionmarket.fragment.ContractListFragment;
 import com.bitcoin.predictionmarket.fragment.PositionsFragment;
+import com.bitcoin.predictionmarket.utils.StaticBalance;
 
 public class MainActivity extends SherlockFragmentActivity {	
 	private ViewPager viewPager;
 	private TabsAdapter tabsAdapter;
+	
+	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ 0.00");	
 	
 	public static void launchFromChild(Context context) {
 		Intent intent = new Intent(context, MainActivity.class);
@@ -49,6 +55,8 @@ public class MainActivity extends SherlockFragmentActivity {
 
 		// Apparently works around a bug that manifests itself on some Android
 		// versions.
-		getSherlock().dispatchInvalidateOptionsMenu();		
+		getSherlock().dispatchInvalidateOptionsMenu();	
+		
+		getActionBar().setSubtitle(getString(R.string.balance, doubleFormatter.format(StaticBalance.balance)));
 	}
 }
