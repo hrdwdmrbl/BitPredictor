@@ -12,8 +12,8 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.bitcoin.predictionmarket.R;
 import com.bitcoin.predictionmarket.adapter.ContractListAdapter;
-import com.bitcoin.predictionmarket.adapter.ContractListAdapter.ListItem;
 import com.bitcoin.predictionmarket.adapter.ContractListAdapter.OnSyncCompleteListener;
+import com.bitcoin.predictionmarket.model.Contract;
 
 public class ContractListFragment extends SherlockListFragment implements OnSyncCompleteListener {
 	public static final String TAG = "ContractListFragment";
@@ -56,6 +56,6 @@ public class ContractListFragment extends SherlockListFragment implements OnSync
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		final ListItem item = (ListItem) contractListAdapter.getItem(position);		
+		final Contract contract = (Contract) contractListAdapter.getItem(position);		
 	}
 }

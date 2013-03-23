@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.bitcoin.predictionmarket.R;
 import com.bitcoin.predictionmarket.adapter.ContractListAdapter.SyncWithServer.SettableList;
+import com.bitcoin.predictionmarket.model.Contract;
 
 public class ContractListAdapter extends BaseAdapter {
 	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ #.##");
@@ -30,11 +31,11 @@ public class ContractListAdapter extends BaseAdapter {
 	private final LayoutInflater layoutInflater;
 	private final ListView listView;		
 
-	private List<ListItem> listData = new ArrayList<ListItem>();
+	private List<Contract> listData = new ArrayList<Contract>();
 	
 	private final SettableList settableList = new SettableList() {
 		@Override
-		public void setList(List<ListItem> newListData) {
+		public void setList(List<Contract> newListData) {
 			ContractListAdapter.this.setList(newListData);
 		}
 	};
@@ -44,16 +45,6 @@ public class ContractListAdapter extends BaseAdapter {
 		TextView contractName;
 		TextView contractExpiration;
 		TextView contractPrice;		
-	}
-
-	public abstract static class ListItem {
-
-	}
-
-	public static class ContractListItem extends ListItem {
-		public String contractName;
-		public Date contractExpiration;
-		public double contractPrice;
 	}
 	
 	public ContractListAdapter(Context context, ListView listView) {
@@ -77,11 +68,11 @@ public class ContractListAdapter extends BaseAdapter {
 		return position;
 	}	
 
-	public List<ListItem> getList() {
+	public List<Contract> getList() {
 		return listData;
 	}	
 
-	void setList(List<ListItem> newListData) {				
+	void setList(List<Contract> newListData) {				
 		listData = newListData;		
 		notifyDataSetChanged();
 	}	
@@ -100,12 +91,12 @@ public class ContractListAdapter extends BaseAdapter {
 			convertView.setTag(contractViewHolder);					
 		}		
 		
-		final ContractListItem listItem = (ContractListItem) listData.get(position);
+		final Contract contract = (Contract) listData.get(position);
 		final ContractViewHolder viewHolder = (ContractViewHolder) convertView.getTag();
 		
-		viewHolder.contractName.setText(listItem.contractName);
-		viewHolder.contractExpiration.setText(context.getString(R.string.expiresOn, dateFormatter.format(listItem.contractExpiration)));
-		viewHolder.contractPrice.setText(doubleFormatter.format(listItem.contractPrice));
+		viewHolder.contractName.setText(contract.contractName);
+		viewHolder.contractExpiration.setText(context.getString(R.string.expiresOn, dateFormatter.format(contract.contractExpiration)));
+		viewHolder.contractPrice.setText(doubleFormatter.format(contract.contractPrice));
 
 		return convertView;
 	}
@@ -118,9 +109,9 @@ public class ContractListAdapter extends BaseAdapter {
 		void onSyncComplete();
 	}
 
-	static class SyncWithServer extends AsyncTask<Void, Void, List<ListItem>> {
+	static class SyncWithServer extends AsyncTask<Void, Void, List<Contract>> {
 		interface SettableList {
-			void setList(List<ListItem> newListData);
+			void setList(List<Contract> newListData);
 		}
 		
 		private final ListView listView;
@@ -140,10 +131,10 @@ public class ContractListAdapter extends BaseAdapter {
 		}
 
 		@Override
-		protected List<ListItem> doInBackground(Void... params) {						
-			final List<ListItem> result = new ArrayList<ListItem>();	
+		protected List<Contract> doInBackground(Void... params) {						
+			final List<Contract> result = new ArrayList<Contract>();	
 			
-			ContractListItem a = new ContractListItem();
+			Contract a = new Contract();
 			a.contractName = "Dow Jones above 25000";			
 			a.contractExpiration = new Date(1388606400000L);
 			a.contractPrice = 4.50;
@@ -153,7 +144,7 @@ public class ContractListAdapter extends BaseAdapter {
 		}
 
 		@Override
-		protected void onPostExecute(List<ListItem> result) {
+		protected void onPostExecute(List<Contract> result) {
 			if (result.isEmpty()) {
 				((TextView) listView.getEmptyView()).setText(R.string.noContractsFound);				
 			}
