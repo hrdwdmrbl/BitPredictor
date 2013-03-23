@@ -34,8 +34,8 @@ public class ContractDetailsActivity extends SherlockFragmentActivity {
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		Contract contract = (Contract) getIntent().getSerializableExtra(BUNDLE_CONTRACT);		
-		((TextView)findViewById(R.id.contractName)).setText(contract.contractName);
-		((TextView)findViewById(R.id.contractExpiration)).setText(getString(R.string.expiresOn, dateFormatter.format(contract.contractExpiration)));		
+		((TextView)findViewById(R.id.contractName)).setText(contract.name);
+		((TextView)findViewById(R.id.contractExpiration)).setText(getString(R.string.expiresOn, dateFormatter.format(contract.expiration)));		
 	}
 
 	@Override

@@ -94,9 +94,9 @@ public class ContractListAdapter extends BaseAdapter {
 		final Contract contract = (Contract) listData.get(position);
 		final ContractViewHolder viewHolder = (ContractViewHolder) convertView.getTag();
 		
-		viewHolder.contractName.setText(contract.contractName);
-		viewHolder.contractExpiration.setText(context.getString(R.string.expiresOn, dateFormatter.format(contract.contractExpiration)));
-		viewHolder.contractPrice.setText(doubleFormatter.format(contract.contractPrice));
+		viewHolder.contractName.setText(contract.name);
+		viewHolder.contractExpiration.setText(context.getString(R.string.expiresOn, dateFormatter.format(contract.expiration)));
+		viewHolder.contractPrice.setText(doubleFormatter.format(contract.price));
 
 		return convertView;
 	}
@@ -135,9 +135,9 @@ public class ContractListAdapter extends BaseAdapter {
 			final List<Contract> result = new ArrayList<Contract>();	
 			
 			Contract a = new Contract();
-			a.contractName = "Dow Jones above 25000";			
-			a.contractExpiration = new Date(1388606400000L);
-			a.contractPrice = 4.50;
+			a.name = "Dow Jones above 25000";			
+			a.expiration = new Date(1388606400000L);
+			a.price = 4.50;
 			result.add(a);
 			
 			return result;
