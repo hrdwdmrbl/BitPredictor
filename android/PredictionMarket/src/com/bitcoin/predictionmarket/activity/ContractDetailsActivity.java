@@ -28,12 +28,12 @@ public class ContractDetailsActivity extends SherlockFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
-		setContentView(R.layout.contract_details);
+		setContentView(R.layout.contract_details);		
 		
 		ActionBar actionBar = getSupportActionBar();
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 		
-		Contract contract = (Contract) getIntent().getSerializableExtra(BUNDLE_CONTRACT);
+		Contract contract = (Contract) getIntent().getSerializableExtra(BUNDLE_CONTRACT);		
 		((TextView)findViewById(R.id.contractName)).setText(contract.contractName);
 		((TextView)findViewById(R.id.contractExpiration)).setText(getString(R.string.expiresOn, dateFormatter.format(contract.contractExpiration)));		
 	}
