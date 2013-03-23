@@ -2,8 +2,16 @@ BitPredictor::Application.routes.draw do
   resources :transactions
 
 
-  resources :buys
-  resources :sells
+  resources :buys do
+    member do
+      put 'accept'
+    end
+  end
+  resources :sells do
+    member do
+      put 'accept'
+    end
+  end
   resources :predictions do
     resources :buys
     resources :sells

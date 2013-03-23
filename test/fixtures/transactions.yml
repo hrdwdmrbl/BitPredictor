@@ -4,12 +4,12 @@ one:
   buyer_id: 1
   seller_id: 1
   price: 1
-  quantity: 1
+  number_of_shares: 1
   prediction_id: 1
 
 two:
   buyer_id: 1
   seller_id: 1
   price: 1
-  quantity: 1
+  number_of_shares: 1
   prediction_id: 1
