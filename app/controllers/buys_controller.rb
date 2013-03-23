@@ -5,7 +5,7 @@ class BuysController < InheritedResources::Base
         create!
     end
     def accept
-        @prediction = Prediction.find(params[:sell][:prediction_id])
+        @prediction = Prediction.find(params[:buy][:prediction_id])
         @buy = Buy.find(params[:id])
         @sell = Sell.create(
             price: @buy.price,
