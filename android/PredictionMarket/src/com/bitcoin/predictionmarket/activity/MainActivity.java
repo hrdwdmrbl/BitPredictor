@@ -14,6 +14,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.bitcoin.predictionmarket.R;
 import com.bitcoin.predictionmarket.adapter.TabsAdapter;
 import com.bitcoin.predictionmarket.fragment.ContractListFragment;
+import com.bitcoin.predictionmarket.fragment.PositionsFragment;
 
 public class MainActivity extends SherlockFragmentActivity {	
 	private ViewPager viewPager;
@@ -38,8 +39,8 @@ public class MainActivity extends SherlockFragmentActivity {
 		viewPager = (ViewPager) findViewById(R.id.pager);
 
 		tabsAdapter = new TabsAdapter(this, viewPager);
-//		tabsAdapter.addTab(bar.newTab().setText(R.string.recorder), RecorderFragment.class);
 		tabsAdapter.addTab(bar.newTab().setText(R.string.contracts), ContractListFragment.class);		
+		tabsAdapter.addTab(bar.newTab().setText(R.string.positions), PositionsFragment.class);
 	}
 
 	@Override

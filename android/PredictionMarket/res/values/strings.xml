@@ -1,12 +1,15 @@
 <resources>
 
     <string name="app_name">Bit Predictor</string>
-    <string name="contracts">Contracts</string>
+    <string name="contracts">Contracts</string>    
     <string name="contractDetailsTitle">Contract Details</string>
     <string name="noContractsFound">No contracts found</string>
-    <string name="loading">Loading...</string>
+    <string name="positions">Positions</string>
+    <string name="loading">Loading…</string>
     <string name="expiresOn">Expires on %s</string>
     <string name="buy">Buy</string>
     <string name="sell">Sell</string>
+    <string name="netProfit">Net profit: %s</string>
+    <string name="netLoss">Net loss: %s</string>
 
 </resources>
