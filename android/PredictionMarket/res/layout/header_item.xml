@@ -8,6 +8,8 @@
     android:paddingTop="2dp"
     android:singleLine="true"
     android:textAllCaps="true"
+    android:textColor="#FFFFFF"
+    android:background="#777777"
     android:textAppearance="?android:attr/textAppearanceLarge"
-    android:textSize="24sp"
+    android:textSize="36sp"
     android:textStyle="bold" />

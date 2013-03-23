@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ import com.bitcoin.predictionmarket.model.Contract;
 public class ContractListAdapter extends BaseAdapter {
 	private static final int VIEW_TYPE_COUNT = 2;
 	private static final int TYPE_HEADER = 0;
-	private static final int TYPE_CONTRACT = 1;		
+	private static final int TYPE_CONTRACT = 1;			
 	
 	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ 0.00");
 	private final DateFormat dateFormatter = SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG);
@@ -46,14 +47,16 @@ public class ContractListAdapter extends BaseAdapter {
 	
 	static class Header {
 		final String header;
+		final int backgroundColor;
 
-		public Header(String header) {
+		public Header(String header, int backgroundColor) {
 			this.header = header;
+			this.backgroundColor = backgroundColor;
 		}				
 	}
 	
 	static class HeaderViewHolder {
-		TextView header;
+		TextView header;		
 	}
 	
 	static class ContractViewHolder {
@@ -139,6 +142,7 @@ public class ContractListAdapter extends BaseAdapter {
 			final HeaderViewHolder viewHolder = (HeaderViewHolder) convertView.getTag();
 			
 			viewHolder.header.setText(header.header);
+			viewHolder.header.setBackgroundColor(header.backgroundColor);
 		} else {
 			final Contract contract = (Contract) listData.get(position);
 			final ContractViewHolder viewHolder = (ContractViewHolder) convertView.getTag();
@@ -184,23 +188,23 @@ public class ContractListAdapter extends BaseAdapter {
 		protected List<Object> doInBackground(Void... params) {						
 			final List<Object> result = new ArrayList<Object>();	
 			
-			result.add(new Header("Business"));
+			result.add(new Header("Business", Color.parseColor("#0099CC")));
 			result.add(new Contract("Apple share price above 500", new Date(1388606400000L), 8.73));
 			result.add(new Contract("Apple share price above 600", new Date(1388606400000L), 6.32));
 			result.add(new Contract("Apple share price above 700", new Date(1388606400000L), 3.47));
-			result.add(new Header("Economy"));
+			result.add(new Header("Economy", Color.parseColor("#9933CC")));
 			result.add(new Contract("Dow Jones above 15000", new Date(1388606400000L), 9.74));
 			result.add(new Contract("Dow Jones above 20000", new Date(1388606400000L), 4.59));
 			result.add(new Contract("Dow Jones above 25000", new Date(1388606400000L), 2.43));
-			result.add(new Header("Government"));
+			result.add(new Header("Government", Color.parseColor("#669900")));
 			result.add(new Contract("War with Iran declared by 2014", new Date(1388606400000L), 3.23));
 			result.add(new Contract("War with Iran declared by 2015", new Date(1420113600000L), 4.58));
 			result.add(new Contract("War with Iran declared by 2016", new Date(1451649600000L), 4.92));
-			result.add(new Header("Health"));
+			result.add(new Header("Health", Color.parseColor("#FF8800")));
 			result.add(new Contract("Marijuana declared legal by 2014", new Date(1388606400000L), 1.42));
 			result.add(new Contract("Marijuana declared legal by 2015", new Date(1420113600000L), 2.74));
 			result.add(new Contract("Marijuana declared legal by 2016", new Date(1451649600000L), 3.47));
-			result.add(new Header("Sports"));
+			result.add(new Header("Sports", Color.parseColor("#CC0000")));
 			result.add(new Contract("Canada wins at least 5 gold medals in the 2014 Olympics", new Date(1393588800000L), 9.32));
 			result.add(new Contract("Canada wins at least 8 gold medals in the 2014 Olympics", new Date(1393588800000L), 6.23));
 			result.add(new Contract("Canada wins at least 12 gold medals in the 2014 Olympics", new Date(1393588800000L), 4.438));			
