@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  end_date: 2013-03-23 11:41:42
+  prediction: MyText
+  source: MyString
+  verified_by: 1
+
+two:
+  name: MyString
+  end_date: 2013-03-23 11:41:42
+  prediction: MyText
+  source: MyString
+  verified_by: 1

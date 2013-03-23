@@ -1,7 +1,9 @@
 BitPredictor::Application.routes.draw do
+  resources :predictions
+
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks"}
 
-  root :to => "statics#index"
+  root :to => "predictions#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
