@@ -4,4 +4,8 @@ class Prediction < ActiveRecord::Base
   has_many :buys
   has_many :transactions
   belongs_to :user
+
+  def volume
+    self.transactions.map{|transaction| transaction.number_of_shares * transaction.price}.sum
+  end
 end

@@ -13,4 +13,8 @@
       = link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook)
     - else
       Hi, #{current_user.name}
+      %br
+      %span Account Available: BTC #{current_user.bitcoin_available}
+      %br
+      %span Account Balance: BTC #{current_user.account_balance}
     = yield

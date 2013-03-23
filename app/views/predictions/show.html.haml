@@ -14,16 +14,16 @@
 
 %table
   %tr
+    %th Number Of Shares
     %th Price
-    %th Quantity
     %th
     %th
     %th
 
   - @prediction.transactions.each do |transaction|
     %tr
-      %td= transaction.price
       %td= transaction.number_of_shares
+      %td= transaction.price
       %td= link_to 'Show', transaction
 
 %h1 Place Your Bits
@@ -31,8 +31,8 @@
 
 %table
   %tr
-    %th NumberOfShares
-    %th User
+    %th Number Of Shares
+    %th Price
     %th
     %th
     %th
@@ -58,7 +58,7 @@
 
 %table
   %tr
-    %th NumberOfShares
+    %th Number Of Shares
     %th User
     %th Prediction
     %th
@@ -80,8 +80,16 @@
         %td= link_to 'Destroy', buy, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
-= link_to 'New Buy', new_prediction_buy_path(@prediction.id)
+= form_for @prediction, :url => yes_prediction_path(@prediction), :method => :put do |ff|
+  = ff.submit 'YES'
+%br
+= form_for @prediction, :url => yes_prediction_path(@prediction), :method => :put do |ff|
+  = ff.submit 'NO'
 
+
+%br
+= link_to 'New Buy', new_prediction_buy_path(@prediction.id)
+\|
 = link_to 'Edit', edit_prediction_path(@prediction)
 \|
 = link_to 'Back', predictions_path

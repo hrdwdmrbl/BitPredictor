@@ -21,8 +21,8 @@ test:
   reconnect: false
   database: bitpredictor_test
   pool: 5
-  username: root
-  password: root
+  username: postgres
+  password: asdcVFGH
 
 production:
   adapter: postgresql

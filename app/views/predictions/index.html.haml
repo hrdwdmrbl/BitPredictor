@@ -4,9 +4,7 @@
   %tr
     %th Name
     %th End date
-    %th Prediction
-    %th Source
-    %th Verified by
+    %th Outcome?
     %th
     %th
     %th
@@ -14,10 +12,8 @@
   - @predictions.each do |prediction|
     %tr
       %td= prediction.name
-      %td= prediction.end_date
-      %td= prediction.prediction
-      %td= prediction.source
-      %td= prediction.verified_by
+      %td= time_ago_in_words(prediction.end_date)
+      %td= prediction.outcome
       %td= link_to 'Show', prediction
       %td= link_to 'Edit', edit_prediction_path(prediction)
       %td= link_to 'Destroy', prediction, :method => :delete, :data => { :confirm => 'Are you sure?' }

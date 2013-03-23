@@ -29,4 +29,33 @@ class User < ActiveRecord::Base
     self.public_key = Guid.new.to_s
     self.private_key = Guid.new.to_s
   end
+
+  def bitcoin_available
+    self.account_balance - self.holds
+  end
+
+  def account_balance
+    configatron.one_btc*2
+  end
+
+  def holds
+    self.outstanding_buys + self.outstanding_sells
+  end
+
+  def outstanding_sells
+    self.sells.incomplete.map{|sell| sell.price * configatron.one_btc}.sum
+  end
+  def outstanding_buys
+    self.buys.incomplete.map{|buy| buy.price * buy.number_of_shares}.sum
+  end
+
+  def transfer
+
+  end
+
+  def add_amount(number_of_bitcoin)
+  end
+
+  def subtract_amount(number_of_bitcoin)
+  end
 end
