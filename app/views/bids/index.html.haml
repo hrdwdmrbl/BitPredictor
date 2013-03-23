@@ -1,0 +1,21 @@
+%h1 Listing bids
+
+%table
+  %tr
+    %th Price
+    %th User
+    %th
+    %th
+    %th
+
+  - @bids.each do |bid|
+    %tr
+      %td= bid.price
+      %td= bid.user_id
+      %td= link_to 'Show', bid
+      %td= link_to 'Edit', edit_bid_path(bid)
+      %td= link_to 'Destroy', bid, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Bid', new_bid_path
