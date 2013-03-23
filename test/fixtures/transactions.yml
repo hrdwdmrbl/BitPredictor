@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  number_of_shares: 9.99
-  user_id: 1
+  buyer_id: 1
+  seller_id: 1
+  price: 1
+  quantity: 1
   prediction_id: 1
 
 two:
-  number_of_shares: 9.99
-  user_id: 1
+  buyer_id: 1
+  seller_id: 1
+  price: 1
+  quantity: 1
   prediction_id: 1

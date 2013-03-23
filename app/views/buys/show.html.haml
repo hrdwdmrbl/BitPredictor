@@ -1,15 +1,18 @@
 %p#notice= notice
 
 %p
+  %b NumberOfShares:
+  = @buy.number_of_shares
+%p
   %b Price:
   = @buy.price
 %p
   %b User:
-  = @buy.user_id
+  = @buy.user.name
 %p
   %b Prediction:
-  = @buy.prediction_id
+  = @buy.prediction.name
 
 = link_to 'Edit', edit_buy_path(@buy)
 \|
-= link_to 'Back', buys_path
+= link_to 'Back', prediction_path(@buy.prediction_id)

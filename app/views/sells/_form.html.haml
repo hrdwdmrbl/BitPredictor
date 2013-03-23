@@ -1,9 +1,9 @@
-= form_for @buy do |f|
-  - if @buy.errors.any?
+= form_for @sell do |f|
+  - if @sell.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@buy.errors.count, "error")} prohibited this buy from being saved:"
+      %h2= "#{pluralize(@sell.errors.count, "error")} prohibited this sell from being saved:"
       %ul
-        - @buy.errors.full_messages.each do |msg|
+        - @sell.errors.full_messages.each do |msg|
           %li= msg
 
   .field
