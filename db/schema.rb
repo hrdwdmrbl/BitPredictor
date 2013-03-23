@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130323180246) do
+ActiveRecord::Schema.define(:version => 20130323200813) do
 
   create_table "buys", :force => true do |t|
     t.decimal  "number_of_shares"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(:version => 20130323180246) do
     t.datetime "updated_at",       :null => false
     t.float    "price"
     t.integer  "transaction_id"
+  end
+
+  create_table "holds", :force => true do |t|
+    t.integer  "user_id"
+    t.float    "value"
+    t.string   "transaction_type"
+    t.integer  "transaction_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "predictions", :force => true do |t|
@@ -71,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20130323180246) do
     t.string   "uid"
     t.string   "name"
     t.string   "public_key"
+    t.string   "private_key"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

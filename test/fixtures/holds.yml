@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  value: 1.5
+  transaction_type: MyString
+  transaction_id: 1
+
+two:
+  user_id: 1
+  value: 1.5
+  transaction_type: MyString
+  transaction_id: 1
