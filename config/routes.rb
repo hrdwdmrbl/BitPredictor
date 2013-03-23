@@ -1,4 +1,7 @@
 BitPredictor::Application.routes.draw do
+  resources :transactions
+
+
   resources :buys
   resources :sells
   resources :predictions do

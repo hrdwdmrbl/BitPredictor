@@ -4,8 +4,14 @@
   %b NumberOfShares:
   = @sell.number_of_shares
 %p
+  %b Price:
+  = @sell.price
+%p
   %b User:
-  = @sell.user_id
+  = @sell.user.name
+%p
+  %b Prediction:
+  = @sell.prediction.name
 
 = link_to 'Edit', edit_sell_path(@sell)
 \|

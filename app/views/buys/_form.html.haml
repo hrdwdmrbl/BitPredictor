@@ -9,6 +9,9 @@
   .field
     = f.label :number_of_shares
     = f.text_field :number_of_shares
-    = f.hidden_field :prediction_id, :value => @prediction.id
+  .field
+    = f.label :price
+    = f.number_field :price
+  = f.hidden_field :prediction_id, :value => @prediction.id
   .actions
     = f.submit 'Save'

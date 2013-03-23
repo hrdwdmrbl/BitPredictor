@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130323172552) do
+ActiveRecord::Schema.define(:version => 20130323173942) do
 
   create_table "buys", :force => true do |t|
     t.decimal  "number_of_shares", :precision => 10, :scale => 0
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(:version => 20130323172552) do
     t.integer  "prediction_id"
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
+    t.float    "price"
+    t.integer  "transaction_id"
   end
 
   create_table "predictions", :force => true do |t|
@@ -38,6 +40,18 @@ ActiveRecord::Schema.define(:version => 20130323172552) do
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
     t.integer  "prediction_id"
+    t.float    "price"
+    t.integer  "transaction_id"
+  end
+
+  create_table "transactions", :force => true do |t|
+    t.integer  "buyer_id"
+    t.integer  "seller_id"
+    t.integer  "price"
+    t.integer  "quantity"
+    t.integer  "prediction_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|
