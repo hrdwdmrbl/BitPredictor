@@ -11,7 +11,34 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130323145828) do
+ActiveRecord::Schema.define(:version => 20130323155754) do
+
+  create_table "bids", :force => true do |t|
+    t.decimal  "price"
+    t.integer  "user_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "prediction_id"
+  end
+
+  create_table "buys", :force => true do |t|
+    t.decimal  "price"
+    t.integer  "user_id"
+    t.integer  "prediction_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "predictions", :force => true do |t|
+    t.string   "name"
+    t.datetime "end_date"
+    t.text     "prediction"
+    t.string   "source"
+    t.integer  "verified_by"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -28,6 +55,8 @@ ActiveRecord::Schema.define(:version => 20130323145828) do
     t.datetime "updated_at",                             :null => false
     t.string   "provider"
     t.string   "uid"
+    t.string   "name"
+    t.string   "public_key"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

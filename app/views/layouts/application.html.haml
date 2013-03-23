@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %title BitPredictor
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    %p.notice= notice
+    %p.alert= alert
+    - if !current_user
+      = link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook)
+    - else
+      Hi, #{current_user.name}
+    = yield

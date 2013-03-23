@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @prediction.name
+%p
+  %b End date:
+  = @prediction.end_date
+%p
+  %b Prediction:
+  = @prediction.prediction
+%p
+  %b Source:
+  = @prediction.source
+%p
+  %b Verified by:
+  = @prediction.verified_by
+
+= link_to 'Edit', edit_prediction_path(@prediction)
+\|
+= link_to 'Back', predictions_path

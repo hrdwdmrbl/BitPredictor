@@ -1,0 +1,23 @@
+%h1 Listing buys
+
+%table
+  %tr
+    %th Price
+    %th User
+    %th Prediction
+    %th
+    %th
+    %th
+
+  - @buys.each do |buy|
+    %tr
+      %td= buy.price
+      %td= buy.user_id
+      %td= buy.prediction_id
+      %td= link_to 'Show', buy
+      %td= link_to 'Edit', edit_buy_path(buy)
+      %td= link_to 'Destroy', buy, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Buy', new_buy_path
