@@ -2,3 +2,5 @@ eclipse.preferences.version=1
 encoding//src/com/bitcoin/predictionmarket/activity/ContractDetailsActivity.java=UTF-8
 encoding//src/com/bitcoin/predictionmarket/adapter/ContractListAdapter.java=UTF-8
 encoding//src/com/bitcoin/predictionmarket/adapter/PositionsAdapter.java=UTF-8
+encoding//src/com/bitcoin/predictionmarket/fragment/BuySellConfirmDialogFragment.java=UTF-8
+encoding//src/com/bitcoin/predictionmarket/fragment/BuySellSubmitSuccessfulDialogFragment.java=UTF-8

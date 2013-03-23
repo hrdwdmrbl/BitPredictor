@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">Bit Predictor</string>
-    <string name="contracts">Contracts</string>    
+    <string name="contracts">Contracts</string>
     <string name="contractDetailsTitle">Contract Details</string>
     <string name="noContractsFound">No contracts found</string>
     <string name="positions">Positions</string>
@@ -9,12 +9,20 @@
     <string name="expiresOn">Expires on %s</string>
     <string name="buy">Buy</string>
     <string name="sell">Sell</string>
+    <string name="confirmBuy">Confirm Purchase Order</string>
+    <string name="confirmSell">Confirm Sell Order</string>
     <string name="netProfit">Net profit: %s</string>
-    <string name="netLoss">Net loss: %s</string>    
-    <string name="numContracts"># of contracts:</string>
-    <string name="priceBtc">Price in BTC:</string>
+    <string name="netLoss">Net loss: %s</string>
+    <string name="numContracts">Quantity</string>
+    <string name="priceBtc">Price</string>
     <string name="unitsBought">%s units purchased</string>
     <string name="unitsShortSold">%s units short sold</string>
     <string name="averageAndCurrentPrice">Average: %1$s, current: %2$s</string>
+    <string name="confirmBuyOrder">Buy %1$s units at %2$s each, for a total of %3$s?</string>
+    <string name="confirmSellOrder">Sell %1$s units at %2$s each, for a total of %3$s?</string>
+    <string name="buyComplete">Purchase Order Complete</string>
+    <string name="buySuccessful">Your purchase order has been successfully submitted!</string>
+    <string name="sellComplete">Sell Order Complete</string>
+    <string name="sellSuccessful">Your sell order has been successfully submitted!</string>
 
 </resources>
