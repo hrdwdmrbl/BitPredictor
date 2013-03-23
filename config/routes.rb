@@ -1,9 +1,9 @@
 BitPredictor::Application.routes.draw do
   resources :buys
-  resources :bids
+  resources :sells
   resources :predictions do
     resources :buys
-    resources :bids
+    resources :sells
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks"}

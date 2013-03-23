@@ -18,7 +18,7 @@ class BuysControllerTest < ActionController::TestCase
 
   test "should create buy" do
     assert_difference('Buy.count') do
-      post :create, buy: { prediction_id: @buy.prediction_id, price: @buy.price, user_id: @buy.user_id }
+      post :create, buy: { prediction_id: @buy.prediction_id, number_of_shares: @buy.number_of_shares, user_id: @buy.user_id }
     end
 
     assert_redirected_to buy_path(assigns(:buy))
@@ -35,7 +35,7 @@ class BuysControllerTest < ActionController::TestCase
   end
 
   test "should update buy" do
-    put :update, id: @buy, buy: { prediction_id: @buy.prediction_id, price: @buy.price, user_id: @buy.user_id }
+    put :update, id: @buy, buy: { prediction_id: @buy.prediction_id, number_of_shares: @buy.number_of_shares, user_id: @buy.user_id }
     assert_redirected_to buy_path(assigns(:buy))
   end
 

@@ -2,7 +2,7 @@
 
 %table
   %tr
-    %th Price
+    %th NumberOfShares
     %th User
     %th Prediction
     %th
@@ -11,7 +11,7 @@
 
   - @buys.each do |buy|
     %tr
-      %td= buy.price
+      %td= buy.number_of_shares
       %td= buy.user_id
       %td= buy.prediction_id
       %td= link_to 'Show', buy

@@ -11,22 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130323155754) do
-
-  create_table "bids", :force => true do |t|
-    t.decimal  "price",         :precision => 10, :scale => 0
-    t.integer  "user_id"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
-    t.integer  "prediction_id"
-  end
+ActiveRecord::Schema.define(:version => 20130323172552) do
 
   create_table "buys", :force => true do |t|
-    t.decimal  "price",         :precision => 10, :scale => 0
+    t.decimal  "number_of_shares", :precision => 10, :scale => 0
     t.integer  "user_id"
     t.integer  "prediction_id"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
   end
 
   create_table "predictions", :force => true do |t|
@@ -38,6 +30,14 @@ ActiveRecord::Schema.define(:version => 20130323155754) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "user_id"
+  end
+
+  create_table "sells", :force => true do |t|
+    t.decimal  "number_of_shares", :precision => 10, :scale => 0
+    t.integer  "user_id"
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.integer  "prediction_id"
   end
 
   create_table "users", :force => true do |t|

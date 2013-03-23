@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :predictions
-  has_many :bids
+  has_many :sells
   has_many :buys
 
   # Setup accessible (or protected) attributes for your model

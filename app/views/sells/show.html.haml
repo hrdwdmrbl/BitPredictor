@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b NumberOfShares:
+  = @sell.number_of_shares
+%p
+  %b User:
+  = @sell.user_id
+
+= link_to 'Edit', edit_sell_path(@sell)
+\|
+= link_to 'Back', prediction_path(@sell.prediction_id)
