@@ -24,7 +24,7 @@ import com.bitcoin.predictionmarket.model.Contract;
 import com.bitcoin.predictionmarket.model.Position;
 
 public class PositionsAdapter extends BaseAdapter {
-	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ #.00");	
+	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ 0.00");	
 	
 	private final Context context;
 	private final LayoutInflater layoutInflater;

@@ -18,7 +18,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.bitcoin.predictionmarket.R;
-import com.bitcoin.predictionmarket.fragment.SellDialogFragment;
+import com.bitcoin.predictionmarket.fragment.BuySellDialogFragment;
 import com.bitcoin.predictionmarket.model.Contract;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
@@ -33,7 +33,7 @@ public class ContractDetailsActivity extends SherlockFragmentActivity {
 	private static final double RANGE = MAX - MIN;
 	
 	private final DateFormat dateFormatter = SimpleDateFormat.getDateInstance(SimpleDateFormat.FULL);
-	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ #.00");
+	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ 0.00");
 	private final DateFormat timeFormatter = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
 	
 	private Contract contract;
@@ -82,10 +82,17 @@ public class ContractDetailsActivity extends SherlockFragmentActivity {
 		LinearLayout layout = (LinearLayout) findViewById(R.id.graphRoot);
 		layout.addView(graphView);
 		
+		findViewById(R.id.buy).setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				BuySellDialogFragment.showBuy(getSupportFragmentManager());
+			}
+		});
+		
 		findViewById(R.id.sell).setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				SellDialogFragment.show(getSupportFragmentManager());
+				BuySellDialogFragment.showSell(getSupportFragmentManager());
 			}
 		});
 	}

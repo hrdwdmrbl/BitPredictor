@@ -28,7 +28,7 @@ public class ContractListAdapter extends BaseAdapter {
 	private static final int TYPE_HEADER = 0;
 	private static final int TYPE_CONTRACT = 1;		
 	
-	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ #.00");
+	private final DecimalFormat doubleFormatter = new DecimalFormat("฿ 0.00");
 	private final DateFormat dateFormatter = SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG);
 	
 	private final Context context;
