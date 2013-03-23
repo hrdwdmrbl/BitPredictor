@@ -14,7 +14,6 @@ import com.bitcoin.predictionmarket.R;
 import com.bitcoin.predictionmarket.activity.ContractDetailsActivity;
 import com.bitcoin.predictionmarket.adapter.PositionsAdapter;
 import com.bitcoin.predictionmarket.adapter.PositionsAdapter.OnSyncCompleteListener;
-import com.bitcoin.predictionmarket.model.Contract;
 import com.bitcoin.predictionmarket.model.Position;
 
 public class PositionsFragment extends SherlockListFragment implements OnSyncCompleteListener {

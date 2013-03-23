@@ -10,6 +10,8 @@
     <string name="buy">Buy</string>
     <string name="sell">Sell</string>
     <string name="netProfit">Net profit: %s</string>
-    <string name="netLoss">Net loss: %s</string>
+    <string name="netLoss">Net loss: %s</string>    
+    <string name="numShares"># of shares:</string>
+    <string name="priceBtc">Price in BTC:</string>
 
 </resources>

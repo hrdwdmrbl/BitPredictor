@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.bitcoin.predictionmarket.R;
+import com.bitcoin.predictionmarket.fragment.SellDialogFragment;
 import com.bitcoin.predictionmarket.model.Contract;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
@@ -78,6 +81,13 @@ public class ContractDetailsActivity extends SherlockFragmentActivity {
 
 		LinearLayout layout = (LinearLayout) findViewById(R.id.graphRoot);
 		layout.addView(graphView);
+		
+		findViewById(R.id.sell).setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				SellDialogFragment.show(getSupportFragmentManager());
+			}
+		});
 	}
 
 	@Override
