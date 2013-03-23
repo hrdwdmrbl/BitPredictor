@@ -42,7 +42,9 @@ public class PositionsAdapter extends BaseAdapter {
 	static class PositionViewHolder {
 		View positionItemLayout;		
 		TextView contractName;		
-		TextView contractPrice;
+		TextView positionDetailsUnits;
+		TextView positionDetailsAveragePrice;
+		TextView marketValue;
 		TextView netProfitLoss;
 	}
 	
@@ -84,7 +86,9 @@ public class PositionsAdapter extends BaseAdapter {
 			final PositionViewHolder positionViewHolder = new PositionViewHolder();
 			positionViewHolder.positionItemLayout = convertView.findViewById(R.id.positionItemLayout);
 			positionViewHolder.contractName = (TextView) convertView.findViewById(R.id.contractName);			
-			positionViewHolder.contractPrice = (TextView) convertView.findViewById(R.id.contractPrice);
+			positionViewHolder.positionDetailsUnits = (TextView) convertView.findViewById(R.id.positionDetailsUnits);
+			positionViewHolder.positionDetailsAveragePrice = (TextView) convertView.findViewById(R.id.positionDetailsAveragePrice);
+			positionViewHolder.marketValue = (TextView) convertView.findViewById(R.id.marketValue);
 			positionViewHolder.netProfitLoss = (TextView) convertView.findViewById(R.id.netProfitLoss);
 			
 			convertView.setTag(positionViewHolder);											
@@ -93,14 +97,25 @@ public class PositionsAdapter extends BaseAdapter {
 		final Position contractPosition = (Position) listData.get(position);
 		final PositionViewHolder viewHolder = (PositionViewHolder) convertView.getTag();
 		
-		viewHolder.contractName.setText(contractPosition.contract.name);
-		viewHolder.contractPrice.setText(doubleFormatter.format(contractPosition.contract.price));
+		viewHolder.contractName.setText(contractPosition.contract.name);				
 		
-		if (contractPosition.netProfitLoss >= 0) {
-			viewHolder.netProfitLoss.setText(doubleFormatter.format(contractPosition.netProfitLoss));
+		if (contractPosition.netUnitsBoughtOrShortSold >= 0) {
+			viewHolder.positionDetailsUnits.setText(context.getString(R.string.unitsBought, contractPosition.netUnitsBoughtOrShortSold));
+		} else {
+			viewHolder.positionDetailsUnits.setText(context.getString(R.string.unitsShortSold, Math.abs(contractPosition.netUnitsBoughtOrShortSold)));
+		}
+		
+		viewHolder.positionDetailsAveragePrice.setText(context.getString(R.string.averageAndCurrentPrice, doubleFormatter.format(Math.abs(contractPosition.netAmountBoughtOrSold) / Math.abs(contractPosition.netUnitsBoughtOrShortSold)), doubleFormatter.format(contractPosition.contract.price)));
+		
+		final double marketValue = contractPosition.contract.price * contractPosition.netUnitsBoughtOrShortSold;		
+		viewHolder.marketValue.setText(doubleFormatter.format(Math.abs(marketValue)));	
+		final double netProfitLoss = marketValue - contractPosition.netAmountBoughtOrSold;
+		
+		if (netProfitLoss >= 0) {
+			viewHolder.netProfitLoss.setText(doubleFormatter.format(netProfitLoss));
 			viewHolder.netProfitLoss.setTextColor(Color.rgb(0, 128, 0));
 		} else {
-			viewHolder.netProfitLoss.setText(doubleFormatter.format(contractPosition.netProfitLoss));
+			viewHolder.netProfitLoss.setText(doubleFormatter.format(netProfitLoss));
 			viewHolder.netProfitLoss.setTextColor(Color.RED);
 		}
 
@@ -140,8 +155,8 @@ public class PositionsAdapter extends BaseAdapter {
 		protected List<Position> doInBackground(Void... params) {						
 			final List<Position> result = new ArrayList<Position>();	
 			
-			result.add(new Position(new Contract("Apple share price above 500", new Date(1388606400000L), 8.73), -2));			
-			result.add(new Position(new Contract("Canada wins at least 8 gold medals in the 2014 Olympics", new Date(1393588800000L), 6.23), 1.23));							
+			result.add(new Position(new Contract("Apple share price above 500", new Date(1388606400000L), 8.73), -2, -10));			
+			result.add(new Position(new Contract("Canada wins at least 8 gold medals in the 2014 Olympics", new Date(1393588800000L), 6.23), 3, 15));							
 			
 			return result;
 		}		

@@ -13,5 +13,8 @@
     <string name="netLoss">Net loss: %s</string>    
     <string name="numContracts"># of contracts:</string>
     <string name="priceBtc">Price in BTC:</string>
+    <string name="unitsBought">%s units purchased</string>
+    <string name="unitsShortSold">%s units short sold</string>
+    <string name="averageAndCurrentPrice">Average: %1$s, current: %2$s</string>
 
 </resources>
