@@ -6,5 +6,7 @@
     <string name="noContractsFound">No contracts found</string>
     <string name="loading">Loading...</string>
     <string name="expiresOn">Expires on %s</string>
+    <string name="buy">Buy</string>
+    <string name="sell">Sell</string>
 
 </resources>

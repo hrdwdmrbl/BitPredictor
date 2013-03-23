@@ -57,7 +57,10 @@ public class ContractListFragment extends SherlockListFragment implements OnSync
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		final Contract contract = (Contract) contractListAdapter.getItem(position);
-		ContractDetailsActivity.launch(getSherlockActivity(), contract);
+		Object object = contractListAdapter.getItem(position);
+		
+		if (object instanceof Contract) {
+			ContractDetailsActivity.launch(getSherlockActivity(), (Contract) object);
+		}
 	}
 }
