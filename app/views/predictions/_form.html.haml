@@ -15,6 +15,7 @@
   .field
     = f.label :prediction
     = f.text_area :prediction
+  = f.hidden_field :user_id, :value => current_user.id
   .field
     = f.label :source
     = f.text_field :source
