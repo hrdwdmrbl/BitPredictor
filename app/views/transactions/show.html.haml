@@ -2,20 +2,20 @@
 
 %p
   %b Buyer:
-  = @transaction.buyer_id
+  = @transaction.buy_id
 %p
   %b Seller:
-  = @transaction.seller_id
+  = @transaction.sell_id
 %p
   %b Price:
   = @transaction.price
 %p
   %b Quantity:
-  = @transaction.quantity
+  = @transaction.number_of_shares
 %p
   %b Prediction:
   = @transaction.prediction_id
 
 = link_to 'Edit', edit_transaction_path(@transaction)
 \|
-= link_to 'Back', transactions_path
+= link_to 'Back', prediction_path(@transaction.prediction_id)

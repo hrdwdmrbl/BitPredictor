@@ -45,6 +45,8 @@ GEM
     bcrypt-ruby (3.0.1)
     binding_of_caller (0.7.1)
       debug_inspector (>= 0.0.1)
+    bitcoin-client (0.0.1)
+      rest-client (= 1.6.3)
     builder (3.0.4)
     coderay (1.0.9)
     coffee-rails (3.2.2)
@@ -55,6 +57,8 @@ GEM
       execjs
     coffee-script-source (1.6.2)
     columnize (0.3.6)
+    configatron (2.10.0)
+      yamler (>= 0.1.0)
     debug_inspector (0.0.2)
     debugger (1.5.0)
       columnize (>= 0.3.1)
@@ -111,7 +115,6 @@ GEM
     mime-types (1.21)
     multi_json (1.7.2)
     multipart-post (1.2.0)
-    mysql2 (0.3.11)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -128,6 +131,7 @@ GEM
       omniauth (~> 1.0)
     orm_adapter (0.4.0)
     parallel (0.6.3)
+    pg (0.14.1)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
@@ -175,6 +179,8 @@ GEM
       json (~> 1.4)
     responders (0.9.3)
       railties (~> 3.1)
+    rest-client (1.6.3)
+      mime-types (>= 1.16)
     ruby-growl (3.0)
     sass (3.2.7)
     sass-rails (3.2.6)
@@ -207,14 +213,17 @@ GEM
     uniform_notifier (1.2.0)
     warden (1.2.1)
       rack (>= 1.0)
+    yamler (0.1.0)
     yard (0.8.5.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  bitcoin-client
   bullet!
   coffee-rails (~> 3.2.1)
+  configatron
   devise
   gon
   guid
@@ -225,10 +234,10 @@ DEPENDENCIES
   js-routes
   json
   kaminari
-  mysql2
   nested_form!
   omniauth-facebook
   parallel
+  pg
   pry
   pry-debugger
   pry-doc

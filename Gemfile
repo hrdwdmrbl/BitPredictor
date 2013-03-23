@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails'
 
-gem 'mysql2'
+gem 'pg'
 gem 'parallel'
 gem 'json'
 gem 'has_scope'
@@ -15,6 +15,8 @@ gem 'guid'
 gem 'sentient_user'
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'bitcoin-client'
+gem 'configatron'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

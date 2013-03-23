@@ -3,4 +3,5 @@ class Buy < ActiveRecord::Base
   belongs_to :prediction
   belongs_to :user
   belongs_to :transaction
+  scope :incomplete, where(:transaction_id => nil)
 end

@@ -10,8 +10,24 @@
   %b Created By:
   = @prediction.user.name
 
+%h1 All Transactions
+
+%table
+  %tr
+    %th Price
+    %th Quantity
+    %th
+    %th
+    %th
+
+  - @prediction.transactions.each do |transaction|
+    %tr
+      %td= transaction.price
+      %td= transaction.number_of_shares
+      %td= link_to 'Show', transaction
+
 %h1 Place Your Bits
-%h2 Listing sells
+%h2 All Sells
 
 %table
   %tr
@@ -21,18 +37,24 @@
     %th
     %th
 
-  - @prediction.sells.each do |sell|
+  - @prediction.sells.incomplete.each do |sell|
     %tr
       %td= sell.number_of_shares
-      %td= sell.user.name
+      %td= sell.price
       %td= link_to 'Show', sell
-      %td= link_to 'Edit', edit_sell_path(sell)
-      %td= link_to 'Destroy', sell, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td
+        = form_for sell, :url => accept_sell_path(sell), :method => :put do |ff|
+          = ff.hidden_field :sell_id, :value => sell.id
+          = ff.hidden_field :prediction_id, :value => @prediction.id
+          = ff.submit 'Accept'
+      - if current_user.id == sell.user_id
+        %td= link_to 'Edit', edit_sell_path(sell)
+        %td= link_to 'Destroy', sell, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 = link_to 'New Sell', new_prediction_sell_path(@prediction.id)
 
-%h2 Listing buys
+%h2 All Buys
 
 %table
   %tr
@@ -43,14 +65,19 @@
     %th
     %th
 
-  - @prediction.buys.each do |buy|
+  - @prediction.buys.incomplete.each do |buy|
     %tr
       %td= buy.number_of_shares
-      %td= buy.user.name
-      %td= buy.prediction_id
+      %td= buy.price
       %td= link_to 'Show', buy
-      %td= link_to 'Edit', edit_buy_path(buy)
-      %td= link_to 'Destroy', buy, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td
+        = form_for buy, :url => accept_buy_path(buy), :method => :put do |ff|
+          = ff.hidden_field :buy_id, :value => buy.id
+          = ff.hidden_field :prediction_id, :value => @prediction.id
+          = ff.submit 'Accept'
+      - if current_user.id == buy.user_id
+        %td= link_to 'Edit', edit_buy_path(buy)
+        %td= link_to 'Destroy', buy, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 = link_to 'New Buy', new_prediction_buy_path(@prediction.id)
